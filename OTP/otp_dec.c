@@ -72,13 +72,6 @@ char* text_from_file (char* file_name) {
 
 	fread(buffer, 1, lSize, fp);
 	
-	/*
-	int j = 0;
-	for (j = 0; j < strlen(buffer); j++) {
-		printf("the character in position %d is %d\n", j, buffer[j]);
-	}
-	*/
-
 	if (buffer[strlen(buffer) - 1] == '\n') {
 		buffer[strlen(buffer) - 1] = '\0';
 	}
@@ -88,7 +81,7 @@ char* text_from_file (char* file_name) {
 
 int main (int argc, char *argv[]) {
      
-	int sockfd, portno, n;
+    int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
@@ -102,9 +95,6 @@ int main (int argc, char *argv[]) {
 
     FILE* fp;
 
-    //char buffer[256];
-
-    
     if (argc != 4) {
        fprintf(stderr,"usage %s plaintext key port\n", argv[0]);
        printf("argc is %d\n", argc);
@@ -116,10 +106,6 @@ int main (int argc, char *argv[]) {
     whole_key = text_from_file(argv[2]);
 
     key = strndup(whole_key, strlen(file_contents));
-
-
-
-    //key = argv[2];
     
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
    
@@ -139,7 +125,6 @@ int main (int argc, char *argv[]) {
 
     server = gethostbyname(server_name);
 
-    
     bzero((char *) &serv_addr, sizeof(serv_addr));
     
     serv_addr.sin_family = AF_INET;
@@ -167,9 +152,6 @@ int main (int argc, char *argv[]) {
         exit(2);
 
     }
-
-
-    //key_plaintext_ciphertext_length = htonl(key_plaintext_ciphertext_length);
 
     n = write(sockfd, &key_plaintext_ciphertext_length, sizeof(long));
 
